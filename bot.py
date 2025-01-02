@@ -92,15 +92,9 @@ class TwitterBot:
 
         time.sleep(2)
 
-        links: list[WebElement] = self.driver.find_elements(By.CSS_SELECTOR,"a")
-        links = [link for link in links if link.get_attribute("data-testid") == "loginButton"]
-
-        if not links:
-            logging.error("Unable to find login button. No anchor tags found.")
-
         try:
-            sign_up_button: WebElement = links[0]
-            sign_up_button.click()
+            login_button: WebElement = self.driver.find_element(By.CSS_SELECTOR,"a[data-testid='loginButton']")
+            login_button.click()
 
         except StaleElementReferenceException:
             logging.error("Unable to click on login button, page might have dynamically changed.")
@@ -136,37 +130,31 @@ class TwitterBot:
 
         time.sleep(4)
 
-        buttons: list[WebElement] = self.driver.find_elements(By.CSS_SELECTOR,"a")
-        buttons = [button for button in buttons if button.get_attribute("aria-label") == "Post"]
+        compose_button: WebElement = self.driver.find_element(By.CSS_SELECTOR,"a[aria-label='Post']")
 
-        if not buttons:
-            logging.error("Unable to find post compose button, selector's attributes might have changed.")
-            raise Exception("Could not find compose button.")
+        if not compose_button:
+            logging.error("Unable to find compose post button, page layout may have changed.")
+            raise Exception("Unable to find compose button.")
 
-        compose_button: WebElement = buttons[0]
         compose_button.click()
         logging.info("Preparing to send tweet.")
 
         time.sleep(4)
 
-        input_forms: list[WebElement] = self.driver.find_elements(By.CSS_SELECTOR,"div")
-        input_forms = [form for form in input_forms if form.get_attribute("contenteditable") == "true"]
+        tweet_input_form: WebElement = self.driver.find_element(By.CSS_SELECTOR,"div[contenteditable='true']")
 
-        if not input_forms:
-            logging.error("Unable to find tweet input form, selector attributes might have changed.")
-            raise Exception("Could not find tweet input form.")
+        if not tweet_input_form:
+            logging.error("Unable to find tweet input form, page layout may have changed.")
+            raise Exception("Unable to find tweet input form.")
 
-        tweet_input_form = input_forms[0]
         tweet_input_form.send_keys(message)
         logging.info("Wrote tweet.")
 
-        compose_page_buttons: list[WebElement] = self.driver.find_elements(By.CSS_SELECTOR,"button")
-        compose_page_buttons = [button for button in compose_page_buttons if button.get_attribute("data-testid") =="tweetButton"]
+        post_button: WebElement = self.driver.find_element(By.CSS_SELECTOR,"button[data-testid='tweetButton']")
 
-        if not compose_page_buttons:
-            logging.error("Unable to find post button, selector attributes might have changed.")
-            raise Exception("Could not find post button.")
+        if not post_button:
+            logging.error("Unable to find post button, page layout may have changed.")
+            raise Exception("Unable to find send post button.")
 
-        post_button: WebElement = compose_page_buttons[0]
         post_button.click()
         logging.info("Sent tweet.")
