@@ -16,7 +16,7 @@ from selenium.common.exceptions import NoSuchElementException,StaleElementRefere
 logging.basicConfig(level=logging.INFO, format="%(filename)s - %(levelname)s - %(message)s - %(asctime)s")
 
 class TwitterBot:
-    timeout: int = 18_000
+    timeout: int = 1800
 
     def __init__(self, target_up: str, target_down: str) -> None:
 
