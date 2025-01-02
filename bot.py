@@ -16,7 +16,7 @@ from selenium.common.exceptions import NoSuchElementException,StaleElementRefere
 logging.basicConfig(level=logging.INFO, format="%(filename)s - %(levelname)s - %(message)s - %(asctime)s")
 
 class TwitterBot:
-    timeout: int = 1800
+    start_time: float = time.time()
 
     def __init__(self, target_up: str, target_down: str) -> None:
 
@@ -69,13 +69,11 @@ class TwitterBot:
                 logging.info("Got internet speeds")
                 break
 
-            elif self.timeout == 0:
+            elif time.time() - self.start_time == 60:
                 self.driver.quit()
                 logging.error("Could not get internet speeds, maximum wait time exceeded")
                 raise Exception("Could not find Internet speeds maximum wait time has been exceeded.")
 
-            else:
-                self.timeout -= 1
 
         return {"download speed":download_mbps, "upload speed":upload_mbps}
 
