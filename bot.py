@@ -166,3 +166,5 @@ class TwitterBot:
 
         post_button.click()
         logging.info("Sent tweet.")
+
+        self.driver.quit()
