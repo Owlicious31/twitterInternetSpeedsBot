@@ -8,7 +8,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 
 #For type annotations
-from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
 from selenium.common.exceptions import NoSuchElementException,StaleElementReferenceException
