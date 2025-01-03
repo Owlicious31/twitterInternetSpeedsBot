@@ -43,14 +43,14 @@ def main(env_vars: dict[str, str]) -> None:
     email: str = env_vars["TWITTER_EMAIL"]
     password: str = env_vars["TWITTER_PASSWORD"]
 
-    bot: TwitterBot = TwitterBot(target_up=TARGET_UP,target_down=TARGET_DOWN)
+    bot = TwitterBot(promised_up=TARGET_UP, promised_down=TARGET_DOWN)
     internet_speed_info = bot.get_internet_speeds()
 
     upload_speed: str = internet_speed_info["upload speed"]
     download_speed: str = internet_speed_info["download speed"]
 
     message: str =\
-        f"Current internet speeds: {upload_speed}up/{download_speed}down. Target speeds are {TARGET_UP}up/{TARGET_DOWN}/down"
+    f"Current internet speeds: {upload_speed}up/{download_speed}down. Promised internet speeds are {TARGET_UP}up/{TARGET_DOWN}/down"
 
     bot.tweet_info(email=email,password=password,message=message)
 

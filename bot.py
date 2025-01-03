@@ -19,17 +19,14 @@ logging.basicConfig(level=logging.INFO, format="%(filename)s - %(levelname)s - %
 class TwitterBot:
     start_time: float = time.time()
 
-    def __init__(self, target_up: str, target_down: str) -> None:
+    def __init__(self, promised_up: str, promised_down: str) -> None:
 
         self.chrome_options = webdriver.ChromeOptions()
         self.chrome_options.add_experimental_option(name="detach",value=True)
 
         self.driver = webdriver.Chrome(options=self.chrome_options)
 
-        self.target_up = target_up
-        self.target_down = target_down
-
-        logging.info(f"Target upload speed: {target_up}, Target download speed: {target_down}")
+        logging.info(f"Target upload speed: {promised_up}, Target download speed: {promised_down}")
 
 
     def get_internet_speeds(self) -> dict[str,str]:
