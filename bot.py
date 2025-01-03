@@ -22,13 +22,13 @@ class TwitterBot:
 
     def __init__(self, target_up: str, target_down: str) -> None:
 
-        self.chrome_options: webdriver.ChromeOptions = webdriver.ChromeOptions()
+        self.chrome_options = webdriver.ChromeOptions()
         self.chrome_options.add_experimental_option(name="detach",value=True)
 
-        self.driver: WebDriver = webdriver.Chrome(options=self.chrome_options)
+        self.driver = webdriver.Chrome(options=self.chrome_options)
 
-        self.target_up: str = target_up
-        self.target_down: str = target_down
+        self.target_up = target_up
+        self.target_down = target_down
 
         logging.info(f"Target upload speed: {target_up}, Target download speed: {target_down}")
 
@@ -55,7 +55,7 @@ class TwitterBot:
             raise
 
         while True:
-            wait: WebDriverWait[WebDriver] = WebDriverWait(driver=self.driver,timeout=10)
+            wait = WebDriverWait(driver=self.driver,timeout=10)
             wait.until(ec.presence_of_element_located((By.CLASS_NAME, SpeedTestSiteInfo.RESULTS_CLASS)))
 
             result_data: list[WebElement] = self.driver.find_elements(By.CLASS_NAME,SpeedTestSiteInfo.RESULTS_CLASS)
@@ -102,7 +102,7 @@ class TwitterBot:
         time.sleep(2)
 
         try:
-            wait: WebDriverWait[WebDriver] = WebDriverWait(driver=self.driver, timeout=15)
+            wait = WebDriverWait(driver=self.driver, timeout=15)
             wait.until(ec.presence_of_element_located((By.CSS_SELECTOR, "input")))
 
             time.sleep(2)

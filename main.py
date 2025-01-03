@@ -3,7 +3,7 @@ import logging
 from dotenv import load_dotenv
 
 from bot import TwitterBot
-ENVIRONMENT: str = "DEMO"
+ENVIRONMENT = "DEMO"
 
 if ENVIRONMENT == "DEMO":
     load_dotenv(".env.demo")
@@ -12,8 +12,8 @@ else:
 
 logging.basicConfig(level=logging.INFO, format="%(filename)s - %(levelname)s - %(message)s - %(asctime)s")
 
-TARGET_UP: str = "150"
-TARGET_DOWN: str = "10"
+TARGET_UP = "150"
+TARGET_DOWN = "10"
 
 def load_env_vars() -> dict[str, str]:
 
@@ -22,7 +22,7 @@ def load_env_vars() -> dict[str, str]:
     email: str = os.getenv("TWITTER_EMAIL")
     password: str = os.getenv("TWITTER_PASSWORD")
 
-    env_vars: dict[str,str | None] = {
+    env_vars: dict[str,str] = {
         "TWITTER_EMAIL":email,
         "TWITTER_PASSWORD":password,
     }
@@ -44,7 +44,7 @@ def main(env_vars: dict[str, str]) -> None:
     password: str = env_vars["TWITTER_PASSWORD"]
 
     bot: TwitterBot = TwitterBot(target_up=TARGET_UP,target_down=TARGET_DOWN)
-    internet_speed_info: dict[str,str] = bot.get_internet_speeds()
+    internet_speed_info = bot.get_internet_speeds()
 
     upload_speed: str = internet_speed_info["upload speed"]
     download_speed: str = internet_speed_info["download speed"]
@@ -56,5 +56,5 @@ def main(env_vars: dict[str, str]) -> None:
 
 
 if __name__ == '__main__':
-    environ_vars: dict[str, str] = load_env_vars()
+    environ_vars = load_env_vars()
     main(environ_vars)
